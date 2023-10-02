@@ -42,7 +42,6 @@ const show_update_book = (req, res) => {
 
 const update_book = (req, res) => {
   const id = req.params.id;
-  console.log("This is the param id" + id);
   const { title, author, genre, price } = req.body;
   Book.findByIdAndUpdate(id, { title, author, genre, price })
     .then((result) => {
@@ -59,6 +58,16 @@ const update_book = (req, res) => {
 
 const delete_book = (req, res) => {
   const id = req.params.id;
+  Book.findByIdAndDelete(id)
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({ error: notFoundMessage });
+      }
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      return res.status(500).json({ error: errorMessage });
+    });
 };
 
 module.exports = {
@@ -66,4 +75,5 @@ module.exports = {
   add_book,
   show_update_book,
   update_book,
+  delete_book,
 };

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const BookForm = () => {
+  const navigate = useNavigate();
   const successMessage = "Process Successful";
   const { id } = useParams();
   const addBokkURL = "/add";
@@ -41,7 +43,6 @@ const BookForm = () => {
         postUrl = updateBookURL;
         httpMehtod = "put";
       }
-      console.log(postUrl);
       const response = await axios({
         url: postUrl,
         method: httpMehtod,
@@ -56,6 +57,7 @@ const BookForm = () => {
         toast.error(response.data.error);
       } else {
         toast.success(successMessage);
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

@@ -14,5 +14,6 @@ router.get("/", bookController.show_all_book);
 router.post("/add", bookController.add_book);
 router.get("/update/:id", bookController.show_update_book);
 router.put("/update/:id", bookController.update_book);
+router.delete("/delete/:id", bookController.delete_book);
 
 module.exports = router;
