@@ -4,6 +4,7 @@ const notFoundMessage = "Cannot Find This";
 const show_all_book = (req, res) => {
   Book.find()
     .sort({ createdAt: -1 })
+    .populate("genre", ["name"])
     .then((result) => {
       res.status(200).json(result);
     })
@@ -26,7 +27,6 @@ const add_book = (req, res) => {
 
 const show_update_book = (req, res) => {
   const id = req.params.id;
-  console.log("This is id " + id);
   Book.findById(id)
     .then((result) => {
       if (!result) {

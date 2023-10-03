@@ -1,0 +1,62 @@
+const Genre = require("../models/genre");
+const errorMessage = "Something went wrong";
+const notFoundMessage = "Genre Not Found";
+const show_all_genre = (req, res) => {
+  Genre.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: errorMessage });
+    });
+};
+
+const add_genre = (req, res) => {
+  const genre = new Genre(req.body);
+  genre
+    .save()
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: errorMessage });
+    });
+};
+
+const show_update_genre = (req, res) => {
+  const id = req.params.id;
+  Genre.findById(id)
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({ error: notFoundMessage });
+      }
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: errorMessage });
+    });
+};
+
+const update_genre = (req, res) => {
+  const id = req.params.id;
+  const { name } = req.body;
+  Genre.findByIdAndUpdate(id, { name })
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({ error: notFoundMessage });
+      }
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: errorMessage });
+    });
+};
+
+module.exports = {
+  show_all_genre,
+  add_genre,
+  show_update_genre,
+  update_genre,
+};

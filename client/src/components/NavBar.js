@@ -3,6 +3,7 @@ import React from "react";
 const NavBar = () => {
   const homeLink = "/";
   const addLink = "/add";
+  const genreListLink = '/genre'
 
   return (
     <nav>
@@ -12,6 +13,9 @@ const NavBar = () => {
         </li>
         <li>
           <a href={addLink}>Add Book</a>
+        </li>
+        <li>
+          <a href={genreListLink}>Genres</a>
         </li>
       </ul>
     </nav>

@@ -2,10 +2,7 @@ import React from "react";
 import useFetch from "../useFetch";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-
 const BookList = ({ fetchUrl }) => {
-  const navigate = useNavigate();
   const successMessage = "Process Successful";
   const { data, isPending, error } = useFetch(fetchUrl);
 
@@ -26,6 +23,7 @@ const BookList = ({ fetchUrl }) => {
   return (
     <div>
       <p>Book Lists</p>
+      <a href="/add">Add</a>
       <table>
         <tr>
           <th>Title</th>
@@ -34,13 +32,13 @@ const BookList = ({ fetchUrl }) => {
           <th>Action</th>
         </tr>
         {error && <tr>{error}</tr>}
-        {error && <tr>{isPending}</tr>}
+        {isPending && <tr>{isPending}</tr>}
         {data &&
           data.map((d) => (
             <tr key={d._id}>
               <td>{d.title}</td>
               <td>{d.author}</td>
-              <td>{d.price}</td>
+              <td>{d.genre.name}</td>
               <td>
                 <a href={`/update/${d._id}`}>Update</a>
                 <a href="#" onClick={(e) => deleteBook(d._id, e)}>

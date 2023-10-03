@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const bookRoutes = require("./routers/bookRoutes");
+const genreRoutes = require("./routers/genreRoutes");
 
 const app = express();
 const env = require("dotenv").config();
@@ -19,3 +20,4 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/", bookRoutes);
+app.use("/genre", genreRoutes);
